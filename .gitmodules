@@ -1,0 +1,9 @@
+[submodule "snapdragon"]
+	path = snapdragon
+	url = https://github.com/warelab/snapdragon
+[submodule "iris"]
+	path = iris
+	url = https://github.com/warelab/iris
+[submodule "sage"]
+	path = sage
+	url = https://github.com/warelab/sage
