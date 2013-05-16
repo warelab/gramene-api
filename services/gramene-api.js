@@ -1,8 +1,18 @@
 var http    = require("http");
 var Service = require('../sage/src/service.js');
 var ensemblConf = require("../conf/ensembl.json");
+var util = require("util");
 
 var service = new Service();
+
+var ENS_URLS = {
+    chrInfo:  "/assembly/info/%s/%s",
+    assembly: "/assembly/info/%s"
+};
+
+var GRM_URLS = {
+    chr: "/genome/%s/chromosome/%s",
+};
 
 function ensemblGET(path, callback) {
     http.get({
@@ -18,20 +28,40 @@ function ensemblGET(path, callback) {
     });
 }
 
-service.get('/genome/:genomeId', function (req, res, next) {
-    ensemblGET('/assembly/info/' + req.params.genomeId,
+service.get('/genome/:species', function (req, res, next) {
+    ensemblGET(util.format(ENS_URLS.assembly, req.params.species),
     function (json) {
         var assembly = JSON.parse(json);
         var genome = { chromosomes: [] };
         assembly.top_level_seq_region_names.forEach(function (chr) {
             genome.chromosomes.push({
                 name: chr,
-                uri: "http://api.gramene.org/genome/" +
-                    req.params.genomeId +
-                    "/chromosome/" + chr
+                uri: util.format(GRM_URLS.chr, req.params.species, chr)
             });
         });
         res.send(genome);
+    });
+});
+
+// service.get('/:resource/list');
+service.get('/:resource', function (req, res, next) {
+    res.send({
+        info: util.format("/%s/%s", req.params.resource, ":id"),
+        ontology: {
+            parents:  [],
+            children: []
+        }
+    });
+    next();
+});
+
+service.get('/genome/:species/chromosome/:chr',
+function (req, res, next) {
+    ensemblGET(util.format(ENS_URLS.chrInfo,
+        req.params.species,
+        req.params.chr
+    ), function (json) {
+        res.send(JSON.parse(json));
     });
 });
 
