@@ -7,7 +7,8 @@ var service = new Service();
 
 var ENS_URLS = {
     chrInfo:  "/assembly/info/%s/%s",
-    assembly: "/assembly/info/%s"
+    assembly: "/assembly/info/%s",
+    gene: "/feature/id/%s?feature=gene",
 };
 
 var GRM_URLS = {
@@ -60,6 +61,14 @@ function (req, res, next) {
     ensemblGET(util.format(ENS_URLS.chrInfo,
         req.params.species,
         req.params.chr
+    ), function (json) {
+        res.send(JSON.parse(json));
+    });
+});
+
+service.get('/gene/:id', function (req, res, next) {
+    ensemblGET(util.format(ENS_URLS.gene,
+        req.params.id
     ), function (json) {
         res.send(JSON.parse(json));
     });
