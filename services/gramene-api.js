@@ -45,7 +45,11 @@ service.get('/genome/:species', function (req, res, next) {
 });
 
 // service.get('/:resource/list');
+// TODO: Send list (paginated) of resources
+
 service.get('/:resource', function (req, res, next) {
+    // TODO: Send resource metadata (Mongo lookup?)
+    // TODO: Figure out what kind of metadata a resource should have
     res.send({
         info: util.format("/%s/%s", req.params.resource, ":id"),
         ontology: {
@@ -54,6 +58,10 @@ service.get('/:resource', function (req, res, next) {
         }
     });
     next();
+});
+
+service.get('/:resource/:id', function (req, res, next) {
+    // TODO: Mongo lookup?
 });
 
 service.get('/genome/:species/chromosome/:chr',
