@@ -1,0 +1,15 @@
+{
+    "settings" : {
+        "hostname" : "0.0.0.0"
+    },
+    "endpoints": {
+    }, 
+    "services": [
+        {
+            "config": "app-config.js",
+            "name": "api",
+            "nodefile": "gramene-api.js",
+            "port": 4747
+        }
+    ]
+}
