@@ -7,6 +7,10 @@
 ##Gramene API
 The API for the [Gramene Project](http://www.gramene.org/).
 
+##Installation
+
+    make
+
 ##License
 
 Copyright (c) 2000-2013 Doreen Ware <ware at cshl.edu>

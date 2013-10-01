@@ -1,0 +1,38 @@
+{
+    "name": "gramene-api",
+    "description": "Gramene API 2.0",
+    "homepage": "http://gramene.org",
+    "license": "MIT",
+    "repository": {
+        "type" : "git",
+        "url"  : "git://github.com/warelab/gramene-api"
+    },
+    "scripts": {
+        "start": "sage",
+        "test": "./node_modules/.bin/mocha"
+    },
+    "version": "0.0.0",
+    "authors": [
+        {
+            "email": "olson@cshl.edu",
+            "name": "Andrew Olson"
+        },
+        {
+            "email": "shiran@cshl.edu",
+            "name": "Shiran Pasternak"
+        },
+        {
+            "email": "kclark@cshl.edu",
+            "name": "Ken Youens-Clark"
+        }
+    ],
+    "dependencies": {
+        "jquery"          : ">=1.8.3",
+        "optimist"        : ">=0.4.0",
+        "underscore"      : ">=1.4.4"
+    },
+    "devDependencies": {
+        "mocha"           : ">=1.10.0",
+        "should"          : ">=1.2.2"
+    }
+}
