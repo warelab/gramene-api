@@ -3,6 +3,8 @@
      _/  _/_/  _/_/      _/    _/  _/    _/    _/  _/_/_/_/  _/    _/  _/_/_/_/   
     _/    _/  _/        _/    _/  _/    _/    _/  _/        _/    _/  _/          
      _/_/_/  _/          _/_/_/  _/    _/    _/    _/_/_/  _/    _/    _/_/_/     
+                                                           
+[![Build Status](https://travis-ci.org/warelab/gramene-api.png)](https://travis-ci.org/warelab/gramene-api)
                                                                                   
 ##Gramene API
 The API for the [Gramene Project](http://www.gramene.org/).
