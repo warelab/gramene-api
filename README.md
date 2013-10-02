@@ -9,9 +9,11 @@
 ##Gramene API
 The API for the [Gramene Project](http://www.gramene.org/).
 
-##Installation
+##Getting Started
 
     make
+    source sage/sage.env
+    sage start
 
 ##License
 
