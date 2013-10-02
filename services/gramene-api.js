@@ -82,5 +82,4 @@ service.get('/gene/:id', function (req, res, next) {
     });
 });
 
-// TODO: Have caller start/stop service.
-service.start({ port: 4747 });
+module.exports = service;

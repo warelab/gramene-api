@@ -6,10 +6,9 @@
     }, 
     "services": [
         {
-            "config": "app-config.js",
             "name": "api",
-            "nodefile": "gramene-api.js",
-            "port": 4747
+            "nodefile": "services/gramene-api.js",
+            "port": 4001
         }
     ]
 }
