@@ -17,6 +17,7 @@
         }
     ], 
     "settings": {
-        "hostname": "0.0.0.0"
+        "hostname": "0.0.0.0",
+        "registry-port": 7423
     }
 }
