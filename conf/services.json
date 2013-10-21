@@ -1,7 +1,7 @@
 {
     "services": [
         {
-            "controller": "services/gramene-api.js",
+            "controller": "src/gramene-api.js",
             "name": "api",
             "port": 4001
         }, 
