@@ -1,18 +1,18 @@
 {
     "services": [
         {
-            "controller": "services/gramene-api.js", 
-            "name": "api", 
+            "controller": "services/gramene-api.js",
+            "name": "api",
             "port": 4001
         }, 
         {
-            "host": "brie", 
-            "name": "pubs", 
+            "host": "brie.cshl.edu",
+            "name": "pubs",
             "port": 3000
         }, 
         {
-            "host": "brie", 
-            "name": "ensembl", 
+            "host": "brie.cshl.edu",
+            "name": "ensembl",
             "port": 3001
         }
     ], 
