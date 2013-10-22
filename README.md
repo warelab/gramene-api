@@ -12,7 +12,7 @@ The API for the [Gramene Project](http://www.gramene.org/).
 ##Getting Started
 
     make
-    source sage/sage.env
+    source sage.env
     sage start
 
 ##License
