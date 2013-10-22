@@ -9,13 +9,11 @@ all: submodules deps test
 submodules: .gitmodules
 	@ git submodule update --init
 
-sage/node_modules: sage/package.json
-	@ $(NPM) install sage
-
-sage/package.json: submodules
+sage/node_modules:
 
 node_modules:
 	@ $(NPM) install
+	@ $(NPM) install sage
 
 deps-npm: node_modules sage/node_modules
 

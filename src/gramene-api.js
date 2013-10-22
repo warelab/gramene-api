@@ -1,9 +1,12 @@
 var http    = require("http");
-var Service = require('../sage/src/service.js');
+var Service  = require('../sage/src/service');
+var Resource = require('../sage/src/resource');
 var ensemblConf = require("../conf/ensembl.json");
 var util = require("util");
 
 var service = new Service();
+service.resource("gene", new Resource({}));
+service.resource("genome", new Resource({}));
 
 var ENS_URLS = {
     chrInfo:  "/assembly/info/%s/%s",
@@ -44,26 +47,6 @@ service.get('/genome/:species', function (req, res, next) {
     });
 });
 
-// service.get('/:resource/list');
-// TODO: Send list (paginated) of resources
-
-service.get('/:resource', function (req, res, next) {
-    // TODO: Send resource metadata (Mongo lookup?)
-    // TODO: Figure out what kind of metadata a resource should have
-    res.send({
-        info: util.format("/%s/%s", req.params.resource, ":id"),
-        ontology: {
-            parents:  [],
-            children: []
-        }
-    });
-    next();
-});
-
-service.get('/:resource/:id', function (req, res, next) {
-    // TODO: Mongo lookup?
-});
-
 service.get('/genome/:species/chromosome/:chr',
 function (req, res, next) {
     ensemblGET(util.format(ENS_URLS.chrInfo,
@@ -74,12 +57,13 @@ function (req, res, next) {
     });
 });
 
-service.get('/gene/:id', function (req, res, next) {
-    ensemblGET(util.format(ENS_URLS.gene,
-        req.params.id
-    ), function (json) {
-        res.send(JSON.parse(json));
-    });
-});
-
+// service.get('/gene/:id', function (req, res, next) {
+//     console.log("Getting gene by ID");
+//     ensemblGET(util.format(ENS_URLS.gene,
+//         req.params.id
+//     ), function (json) {
+//         res.send(JSON.parse(json));
+//     });
+// });
+// 
 module.exports = service;
