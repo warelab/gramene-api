@@ -1,11 +1,12 @@
 var http        = require("http");
 var Sage        = require("sage");
 var util        = require("util");
+
 var ensemblConf = require("../conf/ensembl.json");
 
 var service = new Sage.Service();
-service.resource("gene", new Sage.Resource({}));
-service.resource("genome", new Sage.Resource({}));
+service.resource("gene",   Sage.Resource);
+service.resource("genome", Sage.Resource);
 
 var ENS_URLS = {
     chrInfo:  "/assembly/info/%s/%s",
@@ -31,6 +32,7 @@ function ensemblGET(path, callback) {
     });
 }
 
+/*
 service.get('/genome/:species', function (req, res, next) {
     ensemblGET(util.format(ENS_URLS.assembly, req.params.species),
     function (json) {
@@ -46,6 +48,7 @@ service.get('/genome/:species', function (req, res, next) {
     });
 });
 
+*/
 service.get('/genome/:species/chromosome/:chr',
 function (req, res, next) {
     ensemblGET(util.format(ENS_URLS.chrInfo,
