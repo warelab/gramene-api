@@ -1,12 +1,25 @@
-var http        = require("http");
 var Sage        = require("sage");
+var http        = require("http");
 var util        = require("util");
 
 var ensemblConf = require("../conf/ensembl.json");
 
 var service = new Sage.Service();
-service.resource("gene",   Sage.Resource);
-service.resource("genome", Sage.Resource);
+
+var Gene   = Sage.Resource.extend();
+var Genes  = Sage.Collection.extend({ resource: Gene });
+
+var Genome = Sage.Resource.extend();
+var Genomes = Sage.Collection.extend({
+    resource: Genome,
+    url: "http://brie.cshl.edu:3000/info/species",
+    parse: function (data) {
+        return data.species;
+    }
+});
+
+service.resource("gene",   Gene);
+service.resource("genome", Genomes);
 
 var ENS_URLS = {
     chrInfo:  "/assembly/info/%s/%s",
@@ -14,41 +27,6 @@ var ENS_URLS = {
     gene: "/feature/id/%s?feature=gene",
 };
 
-var GRM_URLS = {
-    chr: "/genome/%s/chromosome/%s",
-};
-
-function ensemblGET(path, callback) {
-    http.get({
-        host: ensemblConf.host,
-        port: ensemblConf.port,
-        path: path,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }, function (response) {
-        response.setEncoding('utf8');
-        response.on('data', callback);
-    });
-}
-
-/*
-service.get('/genome/:species', function (req, res, next) {
-    ensemblGET(util.format(ENS_URLS.assembly, req.params.species),
-    function (json) {
-        var assembly = JSON.parse(json);
-        var genome = { chromosomes: [] };
-        assembly.top_level_seq_region_names.forEach(function (chr) {
-            genome.chromosomes.push({
-                name: chr,
-                uri: util.format(GRM_URLS.chr, req.params.species, chr)
-            });
-        });
-        res.send(genome);
-    });
-});
-
-*/
 service.get('/genome/:species/chromosome/:chr',
 function (req, res, next) {
     ensemblGET(util.format(ENS_URLS.chrInfo,

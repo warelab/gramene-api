@@ -1,4 +1,6 @@
 var supertest = require("supertest");
+var Sage      = require("sage");
+Sage.Service.logLevel("fatal");
 var API       = require("../src/gramene-api");
 
 describe("API", function () {
