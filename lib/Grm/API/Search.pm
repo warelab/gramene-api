@@ -3,8 +3,8 @@ package Grm::API::Search;
 use Mojo::Base 'Mojolicious::Controller';
 
 use lib '/usr/local/gramene-lib/lib';
-use Grm::Search;
-use Grm::Utils qw( camel_case commify iterative_search_values timer_calc );
+#use Grm::Search;
+#use Grm::Utils qw( camel_case commify iterative_search_values timer_calc );
 
 # This action will render a template
 sub search {
@@ -33,7 +33,9 @@ sub search {
 #    $res->{'time'} = $timer->();
 
     $self->respond_to(
-        json => { response => 'hi' }, #$res,
+        json => sub {
+            $self->render( json => { response => 'hi' } )
+        },
         html => sub { $self->render },
     );
 }
