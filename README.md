@@ -1,4 +1,4 @@
-gramene-api
+Gramene API
 ===========
 
-The new Gramene web API
+The Mojolicious/Perl Gramene web API.
