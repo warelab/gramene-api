@@ -1,26 +1,34 @@
-var Sage        = require("sage");
-var http        = require("http");
-var util        = require("util");
+var Sage = require("sage");
+var http = require("http");
+var util = require("util");
 
-var ensemblConf = require("../conf/ensembl.json");
+var service = new Sage.Service({
+    initialize: function () {
+        var self = this;
+        self.registry().done(function (registry) {
+            var ensembl = registry.find("name", "ensembl");
+            var Gene   = Sage.Resource.extend({ name: { type: "string" } });
+            var Genes  = Sage.Collection.extend({ resource: Gene });
 
-var service = new Sage.Service();
+            var Genome = Sage.Resource.extend({
+                url: ensembl.url + "/assembly/info/<%= name %>"
+            });
+            var Genomes = Sage.Collection.extend({
+                resource: Genome,
+                url: ensembl.url + "/info/species",
+                name: { type: "string", required: true },
+                parse: function (data) {
+                    return data.species;
+                }
+            });
 
-var Gene   = Sage.Resource.extend();
-var Genes  = Sage.Collection.extend({ resource: Gene });
-
-var Genome = Sage.Resource.extend();
-var Genomes = Sage.Collection.extend({
-    resource: Genome,
-    url: "http://brie.cshl.edu:3000/info/species",
-    parse: function (data) {
-        return data.species;
+            service.resource("gene",   Gene);
+            service.resource("genome", Genomes);
+        });
     }
 });
 
-service.resource("gene",   Gene);
-service.resource("genome", Genomes);
-
+/*
 var ENS_URLS = {
     chrInfo:  "/assembly/info/%s/%s",
     assembly: "/assembly/info/%s",
@@ -46,4 +54,5 @@ function (req, res, next) {
 //     });
 // });
 // 
+*/
 module.exports = service;
