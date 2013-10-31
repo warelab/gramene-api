@@ -1,51 +1,39 @@
-var http    = require("http");
-var Service  = require('../sage/src/service');
-var Resource = require('../sage/src/resource');
-var ensemblConf = require("../conf/ensembl.json");
+var Sage = require("sage");
+var http = require("http");
 var util = require("util");
 
-var service = new Service();
-service.resource("gene", new Resource({}));
-service.resource("genome", new Resource({}));
+var service = new Sage.Service({
+    initialize: function () {
+        var self = this;
+        self.registry().done(function (registry) {
+            var ensembl = registry.find("name", "ensembl");
+            var Gene   = Sage.Resource.extend({ name: { type: "string" } });
+            var Genes  = Sage.Collection.extend({ resource: Gene });
 
+            var Genome = Sage.Resource.extend({
+                url: ensembl.url + "/assembly/info/<%= name %>"
+            });
+            var Genomes = Sage.Collection.extend({
+                resource: Genome,
+                url: ensembl.url + "/info/species",
+                name: { type: "string", required: true },
+                parse: function (data) {
+                    return data.species;
+                }
+            });
+
+            service.resource("gene",   Gene);
+            service.resource("genome", Genomes);
+        });
+    }
+});
+
+/*
 var ENS_URLS = {
     chrInfo:  "/assembly/info/%s/%s",
     assembly: "/assembly/info/%s",
     gene: "/feature/id/%s?feature=gene",
 };
-
-var GRM_URLS = {
-    chr: "/genome/%s/chromosome/%s",
-};
-
-function ensemblGET(path, callback) {
-    http.get({
-        host: ensemblConf.host,
-        port: ensemblConf.port,
-        path: path,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }, function (response) {
-        response.setEncoding('utf8');
-        response.on('data', callback);
-    });
-}
-
-service.get('/genome/:species', function (req, res, next) {
-    ensemblGET(util.format(ENS_URLS.assembly, req.params.species),
-    function (json) {
-        var assembly = JSON.parse(json);
-        var genome = { chromosomes: [] };
-        assembly.top_level_seq_region_names.forEach(function (chr) {
-            genome.chromosomes.push({
-                name: chr,
-                uri: util.format(GRM_URLS.chr, req.params.species, chr)
-            });
-        });
-        res.send(genome);
-    });
-});
 
 service.get('/genome/:species/chromosome/:chr',
 function (req, res, next) {
@@ -66,4 +54,5 @@ function (req, res, next) {
 //     });
 // });
 // 
+*/
 module.exports = service;
