@@ -1,3 +1,0 @@
-[submodule "sage"]
-	path = sage
-	url = git://github.com/warelab/sage
