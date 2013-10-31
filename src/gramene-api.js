@@ -7,16 +7,18 @@ var service = new Sage.Service({
         var self = this;
         self.registry().done(function (registry) {
             var ensembl = registry.find("name", "ensembl");
-            var Gene   = Sage.Resource.extend({ name: { type: "string" } });
-            var Genes  = Sage.Collection.extend({ resource: Gene });
-
-            var Genome = Sage.Resource.extend({
-                url: ensembl.url + "/assembly/info/<%= name %>"
+            
+            var Gene     = Sage.Resource.extend({ name: { type: "string" } });
+            var Genes    = Sage.Collection.extend({ resource: Gene });
+            var Feature  = Sage.Resource.extend();
+            var Features = Sage.Collection.extend({ resource: Feature });
+            var Genome   = Sage.Resource.extend({
+                url: ensembl.url + "/assembly/info/<%= name %>",
+                name: { type: "string", required: true }
             });
             var Genomes = Sage.Collection.extend({
                 resource: Genome,
                 url: ensembl.url + "/info/species",
-                name: { type: "string", required: true },
                 parse: function (data) {
                     return data.species;
                 }
