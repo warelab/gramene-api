@@ -25,7 +25,7 @@ var service = new Sage.Service({
             });
 
             service.resource("gene",   Gene);
-            service.resource("genome", Genomes);
+            service.resource("genome", Genomes, { listProperties: ["name"] });
         });
     }
 });

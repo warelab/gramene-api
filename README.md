@@ -4,9 +4,9 @@
     _/    _/  _/        _/    _/  _/    _/    _/  _/        _/    _/  _/          
      _/_/_/  _/          _/_/_/  _/    _/    _/    _/_/_/  _/    _/    _/_/_/     
                                                            
-[![Build Status](https://travis-ci.org/warelab/gramene-api.png)](https://travis-ci.org/warelab/gramene-api)
-                                                                                  
-##Gramene API
+[![Build Status][1]][2]
+                                        
+##Gramene API   
 
 **Version 0.0.2**
 
@@ -38,3 +38,6 @@ The API for the [Gramene Project](http://www.gramene.org/).
     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
     FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
     DEALINGS IN THE SOFTWARE.
+
+ [1]: https://travis-ci.org/warelab/gramene-api.png
+ [2]: https://travis-ci.org/warelab/gramene-api
