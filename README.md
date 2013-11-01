@@ -8,7 +8,7 @@
                                         
 ##Gramene API   
 
-**Version 0.0.2**
+**Version 0.0.3**
 
 The API for the [Gramene Project](http://www.gramene.org/).
 
